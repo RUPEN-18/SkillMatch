@@ -1,0 +1,4 @@
+const $=id=>document.getElementById(id);
+function chips(id,items){$(id).replaceChildren(...items.map(x=>{const s=document.createElement('span');s.className='chip';s.textContent=x;return s}));}
+function run(){try{const r=SkillCore.compare($('resume').value,$('skills').value);$('message').textContent='';$('score').textContent=r.score+'%';$('bar').value=r.score;$('summary').textContent=`${r.matched.length} of ${r.total} skills matched`;chips('matched',r.matched);chips('missing',r.missing)}catch(e){$('message').textContent=e.message;$('score').textContent='—';$('bar').value=0;$('summary').textContent='Enter valid input to compare.';chips('matched',[]);chips('missing',[])}}
+$('compare').onclick=run;$('demo').onclick=()=>{$('resume').value='Built Python APIs using FastAPI, SQL and Git. Familiar with React.';$('skills').value='Python, SQL, Docker, React, Kubernetes';run()};
